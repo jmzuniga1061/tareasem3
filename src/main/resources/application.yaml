@@ -1,0 +1,32 @@
+server:
+  port: 8081
+  error:
+    include-message: always
+#configuracion de spring
+spring:
+  application:
+    name: tarea01
+#configuracion de migracion
+  flyway:
+    enabled: true
+    baselineVersion: 1
+    locations:
+       classpath: db/migration
+    sqlMigrationSuffixes: .sql
+    baselineOnMigrate: true
+    sqlMigrationPrefix: V
+    schemas: public
+#configuracion base de datos
+  datasource:
+    url: jdbc:postgresql://localhost:5432/tarea_en_clase
+    username: postgres
+    password: postgres
+    diver-class-name: org.postgresql.Driver
+  #configuracion JPA
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format:sql: true
