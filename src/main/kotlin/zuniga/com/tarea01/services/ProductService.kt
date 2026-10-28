@@ -16,15 +16,32 @@ class ProductService {
     }
 
     fun save(product: Product): Product {
-
-        if (product.description.isNullOrBlank()) {
-            throw Exception("La descripción es obligatoria")
-        }
-
-        if (product.stock != null && product.stock!! < 0) {
-            throw Exception("El stock no puede ser negativo")
-        }
-
         return productRepository.save(product)
+    }
+
+    fun update(product: Product): String {
+
+        val existing = productRepository.findById(product.id!!)
+
+        if (!existing.isPresent) {
+            throw Exception("Producto no encontrado")
+        }
+
+        productRepository.save(product)
+
+        return "Producto actualizado correctamente"
+    }
+
+    fun delete(id: Int): String {
+
+        val existing = productRepository.findById(id)
+
+        if (!existing.isPresent) {
+            throw Exception("Producto no encontrado")
+        }
+
+        productRepository.deleteById(id)
+
+        return "Producto eliminado correctamente"
     }
 }
